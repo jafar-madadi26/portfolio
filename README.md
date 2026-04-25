@@ -38,3 +38,11 @@ VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/your-form-id
 ```
 
 If `VITE_FORMSPREE_ENDPOINT` is not set, the contact form falls back to opening the user's default email client with a prefilled draft.
+
+## GitHub Pages
+
+This app is configured for deployment to:
+
+`https://jafar-madadi26.github.io/jafar-dev-portfolio/`
+
+The Vite `base` path and router basename are set for that repository path so the built assets load correctly on GitHub Pages.
