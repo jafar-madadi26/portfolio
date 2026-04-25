@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Jafar Madadi | Portfolio</title>
+    <script type="text/javascript">
+      var segmentCount = 1;
+      var locationPath = window.location.pathname.split('/');
+      var repoBase = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+      var redirectPath =
+        repoBase +
+        locationPath.slice(0, 1 + segmentCount).join('/') +
+        '/?/' +
+        locationPath.slice(1 + segmentCount).join('/').replace(/&/g, '~and~') +
+        (window.location.search ? '&' + window.location.search.slice(1).replace(/&/g, '~and~') : '') +
+        window.location.hash;
+
+      window.location.replace(redirectPath);
+    </script>
+  </head>
+  <body></body>
+</html>
