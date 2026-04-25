@@ -27,17 +27,20 @@ npm run lint
 
 ## Contact Form Setup
 
-This project supports the same message flow used in the sibling `PortFolio` project: a `fetch()` POST to Formspree.
+This project uses the Formspree React integration for the contact form.
 
 1. Create a form at [Formspree](https://formspree.io/).
 2. Copy `.env.example` to `.env`.
-3. Set:
+3. Set the values:
 
 ```bash
-VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/your-form-id
+VITE_APP_BASE_PATH=/jafar-dev-portfolio/
+VITE_FORMSPREE_FORM_ID=xbdqwvwy
 ```
 
-If `VITE_FORMSPREE_ENDPOINT` is not set, the contact form falls back to opening the user's default email client with a prefilled draft.
+`VITE_APP_BASE_PATH` should match your GitHub repository name when deploying to GitHub Pages.
+
+`VITE_FORMSPREE_FORM_ID` is the Formspree form ID, not the full endpoint URL.
 
 ## GitHub Pages
 
@@ -45,4 +48,6 @@ This app is configured for deployment to:
 
 `https://jafar-madadi26.github.io/jafar-dev-portfolio/`
 
-The Vite `base` path and router basename are set for that repository path so the built assets load correctly on GitHub Pages.
+The project includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds and deploys the site whenever changes are pushed to `main`.
+
+In your GitHub repository settings, set Pages -> Build and deployment -> Source to `GitHub Actions`.

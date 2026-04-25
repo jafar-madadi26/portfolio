@@ -4,11 +4,12 @@ import SectionHeading from '../components/SectionHeading';
 import { contactCards } from '../data/portfolioData';
 
 const initialForm = { name: '', email: '', subject: '', message: '' };
+const formspreeFormId = import.meta.env.VITE_FORMSPREE_FORM_ID || 'xbdqwvwy';
 
 function ContactPage() {
   const [form, setForm] = useState(initialForm);
   const [successMessage, setSuccessMessage] = useState('');
-  const [state, handleSubmit] = useForm('xbdqwvwy');
+  const [state, handleSubmit] = useForm(formspreeFormId);
 
   useEffect(() => {
     if (!state.succeeded) {
