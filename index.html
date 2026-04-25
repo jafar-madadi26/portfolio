@@ -24,6 +24,29 @@
       name="twitter:description"
       content="Senior software engineer specializing in backend architecture, microservices, and enterprise systems."
     />
+    <script type="text/javascript">
+      (function handleGitHubPagesRedirect(location) {
+        if (!location.search.startsWith('?/')) {
+          return;
+        }
+
+        const decodedPath = location.search
+          .slice(2)
+          .split('&')
+          .map(function decode(segment) {
+            return segment.replace(/~and~/g, '&');
+          })
+          .join('?');
+
+        const nextUrl =
+          location.pathname.replace(/\/$/, '') +
+          '/' +
+          decodedPath +
+          location.hash;
+
+        window.history.replaceState(null, '', nextUrl);
+      })(window.location);
+    </script>
   </head>
   <body>
     <div id="root"></div>
