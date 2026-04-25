@@ -34,7 +34,7 @@ This project uses the Formspree React integration for the contact form.
 3. Set the values:
 
 ```bash
-VITE_APP_BASE_PATH=/jafar-dev-portfolio/
+VITE_APP_BASE_PATH=/portfolio/
 VITE_FORMSPREE_FORM_ID=xbdqwvwy
 ```
 
@@ -46,7 +46,7 @@ VITE_FORMSPREE_FORM_ID=xbdqwvwy
 
 This app is configured for deployment to:
 
-`https://jafar-madadi26.github.io/jafar-dev-portfolio/`
+`https://jafar-madadi26.github.io/portfolio/`
 
 The project includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds and deploys the site whenever changes are pushed to `main`.
 

@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    base: normalizeBasePath(env.VITE_APP_BASE_PATH || '/jafar-dev-portfolio/'),
+    base: normalizeBasePath(env.VITE_APP_BASE_PATH || '/portfolio/'),
     plugins: [react()],
     optimizeDeps: {
       exclude: ['lucide-react'],
