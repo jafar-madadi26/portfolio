@@ -1,72 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ValidationError, useForm } from '@formspree/react';
 import SectionHeading from '../components/SectionHeading';
-import { contactCards, profile } from '../data/portfolioData';
+import { contactCards } from '../data/portfolioData';
 
-const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+const initialForm = { name: '', email: '', subject: '', message: '' };
 
 function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState({ type: 'idle', message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState(initialForm);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [state, handleSubmit] = useForm('xbdqwvwy');
+
+  useEffect(() => {
+    if (!state.succeeded) {
+      return;
+    }
+
+    setForm(initialForm);
+    setSuccessMessage("Message sent successfully. I'll reply soon.");
+  }, [state.succeeded]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
-    if (status.type !== 'idle') {
-      setStatus({ type: 'idle', message: '' });
+    if (successMessage) {
+      setSuccessMessage('');
     }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (formspreeEndpoint) {
-      setIsSubmitting(true);
-      setStatus({ type: 'pending', message: 'Sending...' });
-
-      try {
-        const payload = new FormData();
-        payload.append('name', form.name);
-        payload.append('email', form.email);
-        payload.append('subject', form.subject);
-        payload.append('message', form.message);
-
-        const response = await fetch(formspreeEndpoint, {
-          method: 'POST',
-          body: payload,
-          headers: {
-            Accept: 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Request failed');
-        }
-
-        setForm({ name: '', email: '', subject: '', message: '' });
-        setStatus({ type: 'success', message: "Message sent successfully. I'll reply soon." });
-      } catch (error) {
-        setStatus({
-          type: 'error',
-          message: 'Something went wrong while sending the message. Please try again.',
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
-
-      return;
-    }
-
-    const subject = encodeURIComponent(form.subject || `Opportunity for ${profile.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    );
-
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setStatus({
-      type: 'success',
-      message: 'No mail service is configured yet, so this opened your default email client.',
-    });
   };
 
   return (
@@ -107,9 +65,7 @@ function ContactPage() {
           <div className="surface-card p-8">
             <h3 className="text-2xl font-semibold text-[var(--text)]">Send a message</h3>
             <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-              {formspreeEndpoint
-                ? 'Messages are sent directly from this form.'
-                : 'This opens your default email client until a form endpoint is configured.'}
+              Messages are sent directly from this form.
             </p>
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
@@ -123,6 +79,12 @@ function ContactPage() {
                   onChange={handleChange}
                   required
                   className="form-input"
+                />
+                <ValidationError
+                  prefix="Name"
+                  field="name"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-red-500"
                 />
               </div>
               <div>
@@ -138,6 +100,12 @@ function ContactPage() {
                   required
                   className="form-input"
                 />
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-red-500"
+                />
               </div>
               <div>
                 <label htmlFor="subject" className="mb-2 block text-sm font-medium text-[var(--text)]">
@@ -150,6 +118,12 @@ function ContactPage() {
                   onChange={handleChange}
                   required
                   className="form-input"
+                />
+                <ValidationError
+                  prefix="Subject"
+                  field="subject"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-red-500"
                 />
               </div>
               <div>
@@ -165,26 +139,30 @@ function ContactPage() {
                   required
                   className="form-input"
                 />
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-red-500"
+                />
               </div>
-              <button type="submit" className="primary-btn" disabled={isSubmitting}>
-                {isSubmitting
-                  ? 'Sending...'
-                  : formspreeEndpoint
-                    ? 'Send Message'
-                    : 'Open email draft'}
+              <button type="submit" className="primary-btn" disabled={state.submitting}>
+                {state.submitting ? 'Sending...' : 'Send Message'}
               </button>
               <p
                 className={`text-sm ${
-                  status.type === 'error'
+                  state.errors?.length
                     ? 'text-red-500'
-                    : status.type === 'success'
+                    : successMessage
                       ? 'text-emerald-500'
                       : 'text-[var(--muted)]'
                 }`}
                 role="status"
                 aria-live="polite"
               >
-                {status.message}
+                {state.errors?.length
+                  ? 'Something went wrong while sending the message. Please review the highlighted fields and try again.'
+                  : successMessage}
               </p>
             </form>
           </div>
