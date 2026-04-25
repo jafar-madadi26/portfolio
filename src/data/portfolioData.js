@@ -12,7 +12,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/jafar-madadi',
   github: 'https://github.com/jafar-madadi26',
   resumeLabel: 'Resume',
-  resumeHref: '/resume.pdf',
+  resumeHref: `${import.meta.env.BASE_URL}resume.pdf`,
 };
 
 export const metrics = [
