@@ -1,3 +1,5 @@
+import { appBaseUrl } from '../config/appConfig';
+
 export const profile = {
   name: 'Jafar Madadi',
   initials: 'JM',
@@ -12,7 +14,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/jafar-madadi',
   github: 'https://github.com/jafar-madadi26',
   resumeLabel: 'Resume',
-  resumeHref: `${import.meta.env.BASE_URL}resume.pdf`,
+  resumeHref: `${appBaseUrl}resume.pdf`,
 };
 
 export const metrics = [
