@@ -12,7 +12,7 @@ export const profile = {
   location: 'Open to opportunities in Dubai, UAE',
   email: 'jafar.madadi2026@gmail.com',
   linkedin: 'https://www.linkedin.com/in/jafar-madadi',
-  github: 'https://github.com/jafar-madadi26',
+  github: 'https://github.com/madadi-dev',
   resumeLabel: 'Resume',
   resumeHref: `${appBaseUrl}resume.pdf`,
 };
