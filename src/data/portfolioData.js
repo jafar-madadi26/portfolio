@@ -189,7 +189,7 @@ export const contactCards = [
   },
   {
     title: 'GitHub',
-    value: 'github.com/jafar-madadi26',
+    value: 'github.com/madadi-dev',
     href: profile.github,
   },
 ];
