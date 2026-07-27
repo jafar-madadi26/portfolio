@@ -249,6 +249,33 @@
     @apply flex min-h-11 items-center gap-2 rounded-md border border-border/70 bg-background/70 px-4 py-2;
   }
 
+  .soft-card,
+  .project-shell,
+  .stat-card,
+  .key-area,
+  .interactive-card {
+    --card-hover-accent: var(--accent-blue);
+    transition:
+      transform 300ms var(--ease-standard),
+      border-color 300ms var(--ease-standard),
+      background-color 300ms var(--ease-standard),
+      box-shadow 300ms var(--ease-standard);
+  }
+
+  .stat-card-purple {
+    --card-hover-accent: var(--accent-purple);
+  }
+
+  .soft-card:hover,
+  .project-shell:hover,
+  .stat-card:hover,
+  .key-area:hover,
+  .interactive-card:hover {
+    transform: translateY(-0.25rem);
+    border-color: hsl(var(--card-hover-accent) / 0.45);
+    box-shadow: 0 22px 42px -24px hsl(var(--card-hover-accent) / 0.55);
+  }
+
   .contact-panel {
     padding-block: var(--section-space);
     @apply border-t border-border/60 text-center;

@@ -22,7 +22,7 @@ export default function ExperiencePage() {
             <li key={`${item.company}-${item.period}`}>
               <article className="relative border-l-2 border-blue-500/25 pl-7">
                 <span className="timeline-dot" aria-hidden="true" />
-                <div className="soft-card motion-safe:hover:translate-y-0">
+                <div className="soft-card">
                   <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
                     <div><h2 className="text-xl font-semibold">{item.role}</h2><p className="mt-1 font-medium text-blue-600 dark:text-blue-400">{item.company}</p></div>
                     <span className="whitespace-nowrap text-sm text-muted-foreground">{item.period}</span>

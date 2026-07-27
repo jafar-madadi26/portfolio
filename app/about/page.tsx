@@ -27,7 +27,7 @@ export default function AboutPage() {
               My work connects hands-on full-stack delivery with system design, integration, testing, documentation, performance, and cross-functional collaboration. I care about architecture that remains understandable after launch.
             </p>
           </div>
-          <figure className="relative overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-xl">
+          <figure className="interactive-card relative overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-xl">
             <div className="relative aspect-square overflow-hidden rounded-xl bg-muted">
               <Image
                 src={publicAssetPath("/jafar-madadi-at-work.jpg")}

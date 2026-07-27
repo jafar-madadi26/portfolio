@@ -33,7 +33,7 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
   }
 
   return (
-    <section className="rounded-2xl bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="send-message-title">
+    <section className="interactive-card rounded-2xl border border-transparent bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="send-message-title">
       <h2 id="send-message-title" className="text-2xl font-semibold">Send a Message</h2>
 
       {!endpoint ? (

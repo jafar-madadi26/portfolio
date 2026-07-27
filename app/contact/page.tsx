@@ -30,7 +30,7 @@ export default function ContactPage() {
 
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-8">
-            <section className="rounded-2xl bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="get-in-touch-title">
+            <section className="interactive-card rounded-2xl border border-transparent bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="get-in-touch-title">
               <h2 id="get-in-touch-title" className="text-2xl font-semibold">Get in Touch</h2>
               <a href="#contact-form" className="group mt-6 flex min-h-20 items-center gap-4 rounded-xl bg-background/50 p-4 hover:bg-background/80">
                 <span className="rounded-lg bg-blue-500/10 p-3 text-blue-500 transition-transform group-hover:scale-110">
@@ -46,7 +46,7 @@ export default function ContactPage() {
               </p>
             </section>
 
-            <section className="rounded-2xl bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="social-links-title">
+            <section className="interactive-card rounded-2xl border border-transparent bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="social-links-title">
               <h2 id="social-links-title" className="text-2xl font-semibold">Connect with Me</h2>
               <div className="mt-6 flex gap-4">
                 {socialLinks.map(({ icon: Icon, ...social }) => (
