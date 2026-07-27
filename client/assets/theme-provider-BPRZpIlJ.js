@@ -1,0 +1,1 @@
+import{r as e}from"./framework-BpSqSxVs.js";import{t}from"./dist-Bn21CTmW.js";var n=e();function r({children:e}){return(0,n.jsx)(t,{attribute:`class`,defaultTheme:`system`,enableSystem:!0,disableTransitionOnChange:!0,children:e})}export{r as ThemeProvider};
