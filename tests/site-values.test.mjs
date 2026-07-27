@@ -5,6 +5,7 @@ import {
   isSafeSiteUrl,
   normalizeBasePath,
   normalizePhoneNumber,
+  resolveContactFormEndpoint,
   withBasePath,
 } from "../lib/site-values.ts";
 
@@ -19,6 +20,12 @@ test("Formspree endpoints are built only from valid form IDs", () => {
   assert.equal(buildContactFormEndpoint("abc_123-test"), "https://formspree.io/f/abc_123-test");
   assert.equal(buildContactFormEndpoint(""), null);
   assert.equal(buildContactFormEndpoint("../../unsafe"), null);
+});
+
+test("the contact form always has a deployment-safe endpoint", () => {
+  assert.equal(resolveContactFormEndpoint(), "https://formspree.io/f/xbdqwvwy");
+  assert.equal(resolveContactFormEndpoint("custom123"), "https://formspree.io/f/custom123");
+  assert.equal(resolveContactFormEndpoint("../../unsafe"), "https://formspree.io/f/xbdqwvwy");
 });
 
 test("phone numbers are normalized for telephone links", () => {

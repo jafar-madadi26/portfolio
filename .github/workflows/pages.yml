@@ -22,6 +22,7 @@ jobs:
       GITHUB_PAGES: "true"
       NEXT_PUBLIC_BASE_PATH: /portfolio
       NEXT_PUBLIC_SITE_URL: https://madadi-dev.github.io/portfolio/
+      NEXT_PUBLIC_FORMSPREE_FORM_ID: xbdqwvwy
     steps:
       - name: Check out repository
         uses: actions/checkout@v4

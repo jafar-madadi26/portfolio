@@ -3,17 +3,14 @@
 import { AlertCircle, CheckCircle2, LoaderCircle, Send } from "lucide-react";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { profile } from "@/data/portfolio";
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
 
-export function ContactForm({ endpoint }: { endpoint: string | null }) {
+export function ContactForm({ endpoint }: { endpoint: string }) {
   const [status, setStatus] = useState<SubmissionState>("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!endpoint) return;
-
     const form = event.currentTarget;
     setStatus("submitting");
 
@@ -36,15 +33,7 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
     <section className="interactive-card rounded-2xl border border-transparent bg-blue-500/5 p-6 backdrop-blur-sm sm:p-8" aria-labelledby="send-message-title">
       <h2 id="send-message-title" className="text-2xl font-semibold">Send a Message</h2>
 
-      {!endpoint ? (
-        <div className="mt-6" role="status">
-          <p className="leading-7 text-foreground/60">
-            The message form is temporarily unavailable. You can still contact me directly by email.
-          </p>
-          <a href={`mailto:${profile.email}`} className="primary-button mt-6 w-full">Email me</a>
-        </div>
-      ) : (
-        <form id="contact-form" onSubmit={handleSubmit} className="mt-7 grid gap-4" aria-busy={status === "submitting"}>
+      <form id="contact-form" onSubmit={handleSubmit} className="mt-7 grid gap-4" aria-busy={status === "submitting"}>
           <div className="hidden" aria-hidden="true">
             <label htmlFor="company-website">Leave this field empty</label>
             <input id="company-website" name="_gotcha" tabIndex={-1} autoComplete="off" />
@@ -95,8 +84,7 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
           <button type="submit" className="primary-button h-12 w-full text-base" disabled={status === "submitting"}>
             {status === "submitting" ? <><LoaderCircle className="animate-spin" aria-hidden="true" size={17} /> Sending...</> : <>Send Message <Send aria-hidden="true" size={17} /></>}
           </button>
-        </form>
-      )}
+      </form>
     </section>
   );
 }
