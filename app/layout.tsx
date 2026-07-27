@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { default: siteConfig.title, template: `%s | ${profile.name}` },
   description: siteConfig.description,
   applicationName: `${profile.name} Portfolio`,
-  keywords: ["Jafar Madadi", "Senior Software Engineer", "Software Architect", "Full-Stack Developer", "Laravel", "Node.js", "React", "Enterprise Systems", "REST APIs", "Microservices"],
+  keywords: ["Jafar Madadi", "Senior Software Engineer", "Software Architect", "Full-Stack Engineer", "Laravel", "Node.js", "React", "Enterprise Systems", "REST APIs", "Microservices"],
   authors: [{ name: profile.name, url: siteUrl.toString() }],
   creator: profile.name,
   alternates: { canonical: siteUrl.toString() },

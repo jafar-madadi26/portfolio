@@ -5,14 +5,8 @@ export function ProjectCard({ project }: { project: Project }) {
   const isBlue = project.accent === "blue";
 
   return (
-    <article
-      className={`project-shell bg-gradient-to-br ${
-        isBlue
-          ? "from-blue-500/35 via-border to-purple-500/20"
-          : "from-purple-500/35 via-border to-blue-500/20"
-      }`}
-    >
-      <div className="h-full rounded-[calc(1rem-1px)] bg-background/95 p-6 md:p-7">
+    <article className="project-shell">
+      <div className="h-full p-6 md:p-7">
         <div className="flex items-start justify-between gap-5">
           <span className={`project-icon ${isBlue ? "text-blue-500" : "text-purple-500"}`}>
             <Icon aria-hidden="true" size={28} />

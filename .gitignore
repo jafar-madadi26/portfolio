@@ -13,6 +13,7 @@ node_modules
 tsconfig.tsbuildinfo
 dist
 dist-ssr
+tmp
 *.local
 
 .vscode/*

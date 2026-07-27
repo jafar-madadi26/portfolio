@@ -22,7 +22,7 @@ import type {
 export const siteConfig = {
   name: "Jafar Madadi",
   shortName: "JM",
-  url: "https://madadi-dev.github.io/portfolio/",
+  url: "https://jafar-madadi-portfolio.jafar-madadi2026.chatgpt.site/",
   title: "Jafar Madadi | Senior Software Engineer & Software Architect",
   description:
     "Senior Software Engineer and Software Architect designing scalable enterprise platforms, APIs, and workflow automation for telecom, banking, and business operations.",
@@ -39,7 +39,7 @@ export const navigation = [
 export const profile = {
   name: siteConfig.name,
   initials: ["J", "M"] as const,
-  title: "Senior Software Engineer & Software Architect",
+  title: "Senior Software Engineer, Software Architect & Full-Stack Engineer",
   tagline: "software engineer & architect",
   email: "jafar.madadi2026@gmail.com",
   phone: "+93 744 646 063",

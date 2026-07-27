@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigation, profile } from "@/data/portfolio";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -11,6 +11,8 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -23,11 +25,21 @@ export default function Header() {
     if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
     };
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
   return (
@@ -38,9 +50,9 @@ export default function Header() {
             <span>{profile.initials[0]}</span>
             <span>{profile.initials[1]}</span>
           </span>
-          <span className="hidden flex-col sm:flex">
-            <span className="text-sm font-semibold text-foreground/80 group-hover:text-foreground">{profile.name}</span>
-            <span className="text-xs text-muted-foreground">{profile.tagline}</span>
+          <span className="flex min-w-0 flex-col">
+            <span className="truncate text-sm font-medium text-foreground/70 group-hover:text-foreground">{profile.name}</span>
+            <span className="hidden truncate text-xs text-muted-foreground min-[360px]:block">{profile.tagline}</span>
           </span>
         </Link>
 
@@ -61,7 +73,7 @@ export default function Header() {
               );
             })}
           </nav>
-          <a href="/resume.pdf" download className="external-link">Download CV</a>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
           <ThemeToggle />
         </div>
@@ -69,6 +81,7 @@ export default function Header() {
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle />
           <button
+            ref={menuButtonRef}
             type="button"
             className="icon-button"
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
@@ -82,8 +95,30 @@ export default function Header() {
       </div>
 
       {open && (
-        <div id="mobile-navigation" className="mobile-menu md:hidden">
-          <nav className="site-container flex flex-col py-4" aria-label="Mobile navigation">
+        <>
+          <button
+            type="button"
+            className="mobile-menu-backdrop md:hidden"
+            aria-label="Close navigation menu"
+            onClick={() => setOpen(false)}
+          />
+          <aside id="mobile-navigation" className="mobile-menu-panel md:hidden" aria-label="Mobile navigation">
+            <div className="mb-8 flex items-center justify-between gap-4">
+              <p className="text-sm font-semibold">{profile.name}</p>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="icon-button"
+                aria-label="Close navigation menu"
+                onClick={() => {
+                  setOpen(false);
+                  menuButtonRef.current?.focus();
+                }}
+              >
+                <X aria-hidden="true" size={20} />
+              </button>
+            </div>
+          <nav className="flex flex-col" aria-label="Mobile navigation links">
             {navigation.map((item) => {
               const active = pathname === item.href;
               return (
@@ -98,12 +133,13 @@ export default function Header() {
                 </Link>
               );
             })}
-            <div className="mt-3 flex flex-wrap items-center gap-5 border-t border-border pt-4">
-              <a href="/resume.pdf" download className="external-link">Download CV</a>
+            <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-6">
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
             </div>
           </nav>
-        </div>
+          </aside>
+        </>
       )}
     </header>
   );
