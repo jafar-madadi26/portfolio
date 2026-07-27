@@ -1,19 +1,11 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { profile } from "@/data/portfolio";
+import { navigation, profile } from "@/data/portfolio";
 import { ThemeToggle } from "./theme-toggle";
-
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/experience", label: "Experience" },
-  { href: "/contact", label: "Contact" },
-];
 
 export default function Header() {
   const pathname = usePathname();
@@ -27,59 +19,92 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
-      <div className="site-container flex items-center justify-between">
-        <Link href="/" className="brand group" onClick={() => setOpen(false)}>
-          <motion.div className="brand-mark" whileHover={{ scale: 1.05, rotate: 5 }} whileTap={{ scale: 0.95 }}>
+      <div className="site-container flex items-center justify-between gap-4">
+        <Link href="/" className="brand group" onClick={() => setOpen(false)} aria-label={`${profile.name}, home`}>
+          <span className="brand-mark" aria-hidden="true">
             <span>{profile.initials[0]}</span>
-            <motion.span animate={{ y: [0, -2, 0], rotate: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-              {profile.initials[1]}
-            </motion.span>
-          </motion.div>
-          <span className="flex flex-col">
-            <span className="text-sm font-medium text-foreground/70 group-hover:text-foreground">{profile.name}</span>
+            <span>{profile.initials[1]}</span>
+          </span>
+          <span className="hidden flex-col sm:flex">
+            <span className="text-sm font-semibold text-foreground/80 group-hover:text-foreground">{profile.name}</span>
             <span className="text-xs text-muted-foreground">{profile.tagline}</span>
           </span>
         </Link>
 
-        <div className="hidden items-center gap-7 md:flex">
-          <nav className="flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className={`nav-link ${pathname === item.href ? "nav-link-active" : ""}`}>
-                {item.label}
-                {pathname === item.href && <motion.span layoutId="activeTab" className="active-tab" />}
-              </Link>
-            ))}
+        <div className="hidden items-center gap-5 md:flex">
+          <nav className="flex items-center gap-1" aria-label="Primary navigation">
+            {navigation.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`nav-link ${active ? "nav-link-active" : ""}`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                  {active && <span className="active-tab" aria-hidden="true" />}
+                </Link>
+              );
+            })}
           </nav>
-          <a href="/resume.pdf" target="_blank" rel="noreferrer" className="external-link">Resume ↗</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="external-link">LinkedIn ↗</a>
+          <a href="/resume.pdf" download className="external-link">Download CV</a>
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
           <ThemeToggle />
         </div>
 
-        <button type="button" className="icon-button md:hidden" aria-label="Toggle menu" onClick={() => setOpen(!open)}>
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="icon-button"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => setOpen((current) => !current)}
+          >
+            {open ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
+          </button>
+        </div>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="mobile-menu md:hidden">
-            <nav className="site-container flex flex-col py-4">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href} className={`mobile-link ${pathname === item.href ? "text-blue-500" : ""}`} onClick={() => setOpen(false)}>
+      {open && (
+        <div id="mobile-navigation" className="mobile-menu md:hidden">
+          <nav className="site-container flex flex-col py-4" aria-label="Mobile navigation">
+            {navigation.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`mobile-link ${active ? "mobile-link-active" : ""}`}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                >
                   {item.label}
                 </Link>
-              ))}
-              <div className="mt-3 flex items-center gap-5 border-t border-border pt-4">
-                <a href="/resume.pdf" target="_blank" rel="noreferrer" className="external-link">Resume ↗</a>
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" className="external-link">LinkedIn ↗</a>
-                <ThemeToggle />
-              </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              );
+            })}
+            <div className="mt-3 flex flex-wrap items-center gap-5 border-t border-border pt-4">
+              <a href="/resume.pdf" download className="external-link">Download CV</a>
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,53 +1,87 @@
 # Jafar Madadi Portfolio
 
-Personal portfolio source code for Jafar Madadi, a Senior Software Engineer focused on backend architecture, microservices, enterprise systems, and scalable application delivery.
+Production portfolio for Jafar Madadi, a Senior Software Engineer and Software Architect focused on enterprise platforms, backend architecture, APIs, workflow automation, and full-stack delivery.
 
-## Stack
+## Technology
 
-- React
-- Vite
-- Tailwind CSS
-- React Router
+- Next.js 16 App Router and React 19
+- Vinext and Vite for Cloudflare-compatible rendering
+- TypeScript in strict mode
+- Tailwind CSS and `next-themes`
+- Cloudflare Worker runtime and OpenAI Sites hosting
+- Formspree for contact-form delivery
 
-## Sections
+## Architecture
 
-- Home
-- About
-- Experience
-- Contact
+```text
+app/          Routes, metadata routes, layout, and global styles
+components/   Reusable presentation and interactive components
+data/         Typed portfolio content and public site configuration
+lib/          Environment resolution and small pure utilities
+types/        Shared portfolio data contracts
+worker/       Cloudflare Worker entry point and response headers
+tests/        Focused tests for configuration boundaries
+```
 
-## Development
+Portfolio content, navigation, professional links, and public site metadata are centralized in `data/portfolio.ts`. Environment-dependent URL and form handling live in `lib/`.
+
+## Requirements
+
+- Node.js 22.13 or newer
+- npm 10 or newer
+
+## Setup
 
 ```bash
-npm install
+npm ci
+copy .env.example .env.local
 npm run dev
-npm run build
-npm run lint
 ```
 
-## Contact Form Setup
+The development server prints the local URL when ready.
 
-This project uses the Formspree React integration for the contact form.
+## Environment variables
 
-1. Create a form at [Formspree](https://formspree.io/).
-2. Copy `.env.example` to `.env`.
-3. Set the values:
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Canonical production origin used by metadata, sitemap, and structured data |
+| `NEXT_PUBLIC_FORMSPREE_FORM_ID` | Optional | Formspree form ID; without it, the contact page provides a direct-email fallback |
+
+Formspree form IDs are public routing identifiers, not API secrets. Do not add private keys or credentials to `NEXT_PUBLIC_*` variables.
+
+## Scripts
 
 ```bash
-VITE_APP_BASE_PATH=/portfolio/
-VITE_FORMSPREE_FORM_ID=xbdqwvwy
+npm run dev        # Start local development
+npm run lint       # Run Next.js, React, TypeScript, and accessibility lint rules
+npm run typecheck  # Run strict TypeScript checks
+npm test           # Run focused Node tests
+npm run build      # Create the production Cloudflare build
+npm run check      # Run every verification step in sequence
+npm run start      # Serve a completed production build locally
 ```
 
-`VITE_APP_BASE_PATH` should match your GitHub repository name when deploying to GitHub Pages.
+## Contact form behavior
 
-`VITE_FORMSPREE_FORM_ID` is the Formspree form ID, not the full endpoint URL.
+The form uses progressive enhancement in a client component. It validates native HTML fields, posts directly to Formspree, exposes sending/success/error states to assistive technology, includes a spam honeypot, and falls back to email when no form ID is configured.
 
-## GitHub Pages
+## SEO and accessibility
 
-This app is configured for deployment to:
+The app includes route metadata, canonical configuration, Open Graph and X metadata, JSON-LD person data, `sitemap.xml`, `robots.txt`, a web manifest, semantic heading structures, a skip link, current-page navigation semantics, visible focus states, reduced-motion support, and an accessible not-found page.
 
-`https://jafar-madadi26.github.io/portfolio/`
+## Testing and continuous integration
 
-The project includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds and deploys the site whenever changes are pushed to `main`.
+GitHub Actions runs installation, linting, strict type checks, tests, and a production build for pull requests and changes to `main`. Deployment is managed by Sites using `.openai/hosting.json`; the CI workflow intentionally does not publish server output as static GitHub Pages files.
 
-In your GitHub repository settings, set Pages -> Build and deployment -> Source to `GitHub Actions`.
+## Deployment
+
+The repository is configured for OpenAI Sites and emits a Cloudflare Worker-compatible ESM bundle into `dist/`. Keep `.openai/hosting.json`, `vite.config.ts`, `build/sites-vite-plugin.ts`, and `worker/index.ts` aligned when changing runtime behavior.
+
+Before publishing:
+
+```bash
+npm ci
+npm run check
+```
+
+Set hosted runtime values through the Sites environment rather than committing secrets.
