@@ -30,8 +30,8 @@ export const projects = [
   {
     title: "Enterprise Telecom Systems",
     subtitle: "Telecom Operations",
-    description: "Scalable services and operational systems supporting telecom workflows, automation, and enterprise teams at Afghan Telecom.",
-    technologies: ["Laravel", "NestJS", "React", "Livewire"],
+    description: "The DSL Management System and connected services supporting surveys, sales, stock, reporting, and automated telecom workflows at Afghan Telecom.",
+    technologies: ["Laravel", "Livewire", "React", "REST APIs", "MySQL"],
     icon: Network,
     tone: "blue",
   },
@@ -89,8 +89,8 @@ export const experience = [
     period: "June 2025 - Present",
     summary: "Leading enterprise telecom system development and scalable backend delivery.",
     bullets: [
-      "Build enterprise systems with Laravel, Node.js/NestJS, React, and Livewire.",
-      "Design RESTful APIs and backend services for telecom operations and workflow automation.",
+      "Develop the DSL Management System with Laravel, Livewire, React.js, REST APIs, and MySQL.",
+      "Automate telecom workflows for services, surveys, sales, stock, and operational reporting.",
       "Improve performance, architecture, engineering standards, and technical documentation.",
     ],
   },
@@ -130,10 +130,10 @@ export const experience = [
 ];
 
 export const skillGroups = [
-  { title: "Languages", skills: ["PHP", "TypeScript", "Java", "Python", "SQL"] },
-  { title: "Frontend", skills: ["React.js", "HTML", "CSS", "Tailwind CSS", "Bootstrap", "Sass/Less", "Alpine.js"] },
-  { title: "Backend", skills: ["Laravel", "Node.js", "NestJS", "Django", "FastAPI", "Livewire", "RESTful APIs"] },
-  { title: "Data & Delivery", skills: ["MySQL", "PostgreSQL", "SQL Server", "MongoDB", "Git", "CI/CD", "AWS"] },
+  { title: "Languages", skills: ["PHP", "TypeScript", "JavaScript", "Python", "Java", "C#", "SQL"] },
+  { title: "Frameworks", skills: ["Laravel", "Livewire", "React.js", "Next.js", "Node.js", "NestJS", "Express.js", "Django", "FastAPI"] },
+  { title: "Data & Cloud", skills: ["MySQL", "PostgreSQL", "SQL Server", "MongoDB", "Redis", "AWS", "Docker", "Kubernetes", "Linux"] },
+  { title: "Architecture", skills: ["Microservices", "REST APIs", "gRPC", "Event-Driven", "DDD", "Clean Architecture", "SOLID", "Design Patterns"] },
 ];
 
 export const languages = ["Persian/Dari · Native", "English · C2 Fluent", "Pashto · Fluent", "Urdu · Fluent"];

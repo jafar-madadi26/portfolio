@@ -8,6 +8,9 @@ lerna-debug.log*
 
 node_modules
 .next
+.vinext
+.wrangler
+tsconfig.tsbuildinfo
 dist
 dist-ssr
 *.local
