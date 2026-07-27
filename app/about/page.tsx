@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Award, Download, GraduationCap, Languages, MapPin, PlaySquare } from "lucide-react";
+import { Award, FileText, GraduationCap, Languages, MapPin, PlaySquare } from "lucide-react";
 import Image from "next/image";
 import { SectionHeading } from "@/components/section-heading";
 import { education, languages, profile, recognition, skillGroups } from "@/data/portfolio";
@@ -105,7 +105,7 @@ export default function AboutPage() {
           </article>
         </div>
 
-        <div className="mt-12 text-center"><a href={publicAssetPath("/resume.pdf")} download className="primary-button"><Download aria-hidden="true" size={17} /> Download CV</a></div>
+        <div className="mt-12 text-center"><a href={publicAssetPath("/resume.pdf")} target="_blank" rel="noopener noreferrer" className="primary-button"><FileText aria-hidden="true" size={17} /> View CV</a></div>
       </div>
     </section>
   );

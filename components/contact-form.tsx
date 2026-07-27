@@ -44,8 +44,8 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
           <a href={`mailto:${profile.email}`} className="primary-button mt-6 w-full">Email me</a>
         </div>
       ) : (
-        <form id="contact-form" onSubmit={handleSubmit} className="mt-6 space-y-6" aria-busy={status === "submitting"}>
-          <div className="sr-only" aria-hidden="true">
+        <form id="contact-form" onSubmit={handleSubmit} className="mt-7 grid gap-4" aria-busy={status === "submitting"}>
+          <div className="hidden" aria-hidden="true">
             <label htmlFor="company-website">Leave this field empty</label>
             <input id="company-website" name="_gotcha" tabIndex={-1} autoComplete="off" />
           </div>
@@ -58,8 +58,8 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
               required
               maxLength={100}
               autoComplete="name"
-              className="form-input border-blue-500/20 bg-background/50 focus:border-blue-500/50"
-              placeholder="Your name"
+              className="form-input h-10 border-blue-500/25 bg-background/40 px-3 py-2 text-base focus:border-blue-500/60"
+              placeholder="John Doe"
             />
           </label>
 
@@ -71,7 +71,7 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
               type="email"
               required
               autoComplete="email"
-              className="form-input border-blue-500/20 bg-background/50 focus:border-blue-500/50"
+              className="form-input h-10 border-blue-500/25 bg-background/40 px-3 py-2 text-base focus:border-blue-500/60"
               placeholder="you@example.com"
             />
           </label>
@@ -84,19 +84,16 @@ export function ContactForm({ endpoint }: { endpoint: string | null }) {
               required
               maxLength={5000}
               rows={6}
-              className="form-input min-h-[150px] resize-none border-blue-500/20 bg-background/50 focus:border-blue-500/50"
+              className="form-input h-[150px] resize-none border-blue-500/25 bg-background/40 px-3 py-2 text-base focus:border-blue-500/60"
               placeholder="Tell me about your project..."
             />
           </label>
 
-          <div className="min-h-6 text-sm" aria-live="polite">
-            {status === "success" && <p className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400"><CheckCircle2 aria-hidden="true" size={17} /> Message sent! I&apos;ll respond as soon as possible.</p>}
-            {status === "error" && <p className="flex items-center gap-2 text-red-700 dark:text-red-400"><AlertCircle aria-hidden="true" size={17} /> Message not sent. Please email me directly.</p>}
-          </div>
+          {status === "success" && <p className="flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-400" aria-live="polite"><CheckCircle2 aria-hidden="true" size={17} /> Message sent! I&apos;ll respond as soon as possible.</p>}
+          {status === "error" && <p className="flex items-center gap-2 text-sm text-red-700 dark:text-red-400" aria-live="polite"><AlertCircle aria-hidden="true" size={17} /> Message not sent. Please email me directly.</p>}
 
           <button type="submit" className="primary-button h-12 w-full text-base" disabled={status === "submitting"}>
-            {status === "submitting" ? <LoaderCircle className="animate-spin" aria-hidden="true" size={17} /> : <Send aria-hidden="true" size={17} />}
-            {status === "submitting" ? "Sending..." : "Send Message"}
+            {status === "submitting" ? <><LoaderCircle className="animate-spin" aria-hidden="true" size={17} /> Sending...</> : <>Send Message <Send aria-hidden="true" size={17} /></>}
           </button>
         </form>
       )}

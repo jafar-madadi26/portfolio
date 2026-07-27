@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, Download, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, FileText, Sparkles, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
@@ -54,7 +54,7 @@ export default function HomePage() {
 
           <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <a href="#projects" className="primary-button">View projects <ArrowRight aria-hidden="true" size={17} /></a>
-            <a href={publicAssetPath("/resume.pdf")} download className="secondary-button"><Download aria-hidden="true" size={17} /> Download CV</a>
+            <a href={publicAssetPath("/resume.pdf")} target="_blank" rel="noopener noreferrer" className="secondary-button"><FileText aria-hidden="true" size={17} /> View CV</a>
             <Link href="/contact" className="text-button">Contact me</Link>
           </div>
 
