@@ -45,6 +45,7 @@ The development server prints the local URL when ready.
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Recommended | Canonical production origin used by metadata, sitemap, and structured data |
+| `NEXT_PUBLIC_BASE_PATH` | Optional | Production subdirectory such as `/portfolio` for GitHub Pages assets and résumé links |
 | `NEXT_PUBLIC_FORMSPREE_FORM_ID` | Optional | Formspree form ID; without it, the contact page provides a direct-email fallback |
 
 Formspree form IDs are public routing identifiers, not API secrets. Do not add private keys or credentials to `NEXT_PUBLIC_*` variables.
@@ -85,3 +86,5 @@ npm run check
 ```
 
 Set hosted runtime values through the Sites environment rather than committing secrets.
+
+The repository also includes a separate GitHub Pages workflow. That build uses a static export with `NEXT_PUBLIC_BASE_PATH=/portfolio`, so navigation, images, metadata assets, and `resume.pdf` resolve correctly from `https://madadi-dev.github.io/portfolio/`. The Sites build remains base-path-free and continues to use Vinext.

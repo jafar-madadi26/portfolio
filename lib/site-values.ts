@@ -17,3 +17,15 @@ export function buildContactFormEndpoint(formId?: string): string | null {
 export function normalizePhoneNumber(phone: string): string {
   return phone.replace(/[^\d+]/g, "");
 }
+
+export function normalizeBasePath(candidate?: string): string {
+  if (!candidate || candidate === "/") return "";
+  const normalized = `/${candidate}`.replace(/\/{2,}/g, "/").replace(/\/$/, "");
+  return normalized === "/" || normalized.includes("..") ? "" : normalized;
+}
+
+export function withBasePath(path: string, candidate?: string): string {
+  const basePath = normalizeBasePath(candidate);
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${basePath}${normalizedPath}`;
+}

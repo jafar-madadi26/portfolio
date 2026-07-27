@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
 import { companies, keyAreas, projects, specializations, stats } from "@/data/portfolio";
+import { publicAssetPath } from "@/lib/public-path";
 
 const architecturePrinciples = [
   "Clear service boundaries and maintainable domain models",
@@ -53,7 +54,7 @@ export default function HomePage() {
 
           <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <a href="#projects" className="primary-button">View projects <ArrowRight aria-hidden="true" size={17} /></a>
-            <a href="/resume.pdf" download className="secondary-button"><Download aria-hidden="true" size={17} /> Download CV</a>
+            <a href={publicAssetPath("/resume.pdf")} download className="secondary-button"><Download aria-hidden="true" size={17} /> Download CV</a>
             <Link href="/contact" className="text-button">Contact me</Link>
           </div>
 

@@ -3,6 +3,7 @@ import { Award, Download, GraduationCap, Languages, MapPin, PlaySquare } from "l
 import Image from "next/image";
 import { SectionHeading } from "@/components/section-heading";
 import { education, languages, profile, recognition, skillGroups } from "@/data/portfolio";
+import { publicAssetPath } from "@/lib/public-path";
 import { resolveSiteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export default function AboutPage() {
           <figure className="relative overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-xl">
             <div className="relative aspect-square overflow-hidden rounded-xl bg-muted">
               <Image
-                src="/jafar-madadi-at-work.jpg"
+                src={publicAssetPath("/jafar-madadi-at-work.jpg")}
                 alt="Jafar Madadi working at a computer"
                 fill
                 quality={85}
@@ -104,7 +105,7 @@ export default function AboutPage() {
           </article>
         </div>
 
-        <div className="mt-12 text-center"><a href="/resume.pdf" download className="primary-button"><Download aria-hidden="true" size={17} /> Download CV</a></div>
+        <div className="mt-12 text-center"><a href={publicAssetPath("/resume.pdf")} download className="primary-button"><Download aria-hidden="true" size={17} /> Download CV</a></div>
       </div>
     </section>
   );

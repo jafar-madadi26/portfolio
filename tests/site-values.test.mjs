@@ -3,7 +3,9 @@ import test from "node:test";
 import {
   buildContactFormEndpoint,
   isSafeSiteUrl,
+  normalizeBasePath,
   normalizePhoneNumber,
+  withBasePath,
 } from "../lib/site-values.ts";
 
 test("site URLs must use HTTPS, except for local development", () => {
@@ -21,4 +23,12 @@ test("Formspree endpoints are built only from valid form IDs", () => {
 
 test("phone numbers are normalized for telephone links", () => {
   assert.equal(normalizePhoneNumber("+93 744 646 063"), "+93744646063");
+});
+
+test("public assets respect an optional production base path", () => {
+  assert.equal(normalizeBasePath("/portfolio/"), "/portfolio");
+  assert.equal(normalizeBasePath("/"), "");
+  assert.equal(normalizeBasePath("../unsafe"), "");
+  assert.equal(withBasePath("/resume.pdf", "/portfolio"), "/portfolio/resume.pdf");
+  assert.equal(withBasePath("/resume.pdf"), "/resume.pdf");
 });

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navigation, profile } from "@/data/portfolio";
+import { publicAssetPath } from "@/lib/public-path";
 import { ThemeToggle } from "./theme-toggle";
 
 export default function Header() {
@@ -73,7 +74,7 @@ export default function Header() {
               );
             })}
           </nav>
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
+          <a href={publicAssetPath("/resume.pdf")} target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
           <ThemeToggle />
         </div>
@@ -134,7 +135,7 @@ export default function Header() {
               );
             })}
             <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-6">
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
+              <a href={publicAssetPath("/resume.pdf")} target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
             </div>
           </nav>
