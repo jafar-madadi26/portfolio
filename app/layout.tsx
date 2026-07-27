@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "Jafar Madadi | Senior Software Engineer",
     description: "Enterprise software, scalable APIs, and workflow automation across telecom and banking.",
     type: "website",
+    images: [{ url: "/jafar-madadi-headshot.jpg", width: 900, height: 1200, alt: "Jafar Madadi" }],
   },
   robots: { index: true, follow: true },
 };

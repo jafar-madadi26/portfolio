@@ -1,12 +1,13 @@
 import { ArrowRight, Sparkles, TrendingUp } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { companies, keyAreas, profile, projects, specializations, stats } from "@/data/portfolio";
 
 export default function HomePage() {
   return (
     <>
-      <section className="site-container flex min-h-[calc(100vh-6rem)] items-center py-16">
-        <div className="max-w-4xl space-y-8">
+      <section className="site-container grid min-h-[calc(100vh-6rem)] items-center gap-12 py-16 lg:grid-cols-[1fr_.72fr] lg:gap-16">
+        <div className="space-y-8">
           <div className="badge"><Sparkles size={14} /> Senior Full-Stack & Systems Developer</div>
           <h1 className="max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
             Building enterprise software and <span className="gradient-text">scalable systems that simplify operations</span>
@@ -42,6 +43,32 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border/40 pt-8 text-sm text-muted-foreground">
             <span className="uppercase tracking-wider">Worked with</span>
             {companies.map((company) => <span key={company} className="font-semibold text-foreground/70">{company}</span>)}
+          </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[25rem] lg:max-w-none">
+          <div className="absolute -inset-5 rounded-[2.25rem] bg-gradient-to-br from-blue-500/15 via-transparent to-purple-500/20 blur-2xl" />
+          <div className="relative overflow-hidden rounded-[2rem] border border-blue-500/20 bg-background p-2 shadow-2xl shadow-blue-950/10 dark:shadow-black/40">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.55rem] bg-muted">
+              <Image
+                src="/jafar-madadi-headshot.jpg"
+                alt="Professional portrait of Jafar Madadi"
+                fill
+                priority
+                sizes="(max-width: 1024px) 400px, 34vw"
+                className="object-cover object-[50%_35%]"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-200">Senior Software Engineer</p>
+                <h2 className="mt-2 text-2xl font-semibold">Jafar Madadi</h2>
+                <p className="mt-1 text-sm text-white/75">Kabul · Open to relocate</p>
+              </div>
+            </div>
+          </div>
+          <div className="absolute -right-3 top-10 hidden rounded-xl border border-border/60 bg-background/90 px-4 py-3 shadow-lg backdrop-blur md:block">
+            <p className="text-xs text-muted-foreground">Experience</p>
+            <p className="mt-1 font-semibold text-blue-600 dark:text-blue-400">Telecom · Banking</p>
           </div>
         </div>
       </section>
