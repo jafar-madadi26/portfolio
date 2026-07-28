@@ -46,19 +46,35 @@ export default function Header() {
   return (
     <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
       <div className="site-container flex items-center justify-between gap-4">
-        <Link href="/" className="brand group" onClick={() => setOpen(false)} aria-label={`${profile.name}, home`}>
+        <Link
+          href="/"
+          className="brand group"
+          onClick={() => setOpen(false)}
+          aria-label={`${profile.name}, home`}
+        >
           <span className="brand-mark" aria-hidden="true">
-            <span>{profile.initials[0]}</span>
-            <span>{profile.initials[1]}</span>
+            <span className="brand-letter brand-letter-j">
+              {profile.initials[0]}
+            </span>
+            <span className="brand-letter brand-letter-m">
+              {profile.initials[1]}
+            </span>
           </span>
           <span className="flex min-w-0 flex-col">
-            <span className="truncate text-sm font-medium text-foreground/70 group-hover:text-foreground">{profile.name}</span>
-            <span className="hidden truncate text-xs text-muted-foreground min-[360px]:block">{profile.tagline}</span>
+            <span className="truncate text-sm font-medium text-foreground/70 group-hover:text-foreground">
+              {profile.name}
+            </span>
+            <span className="hidden truncate text-xs text-muted-foreground min-[360px]:block">
+              {profile.tagline}
+            </span>
           </span>
         </Link>
 
         <div className="hidden items-center gap-5 md:flex">
-          <nav className="flex items-center gap-1" aria-label="Primary navigation">
+          <nav
+            className="flex items-center gap-1"
+            aria-label="Primary navigation"
+          >
             {navigation.map((item) => {
               const active = pathname === item.href;
               return (
@@ -74,8 +90,22 @@ export default function Header() {
               );
             })}
           </nav>
-          <a href={publicAssetPath("/resume.pdf")} target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
+          <a
+            href={publicAssetPath("/resume.pdf")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
+          >
+            Resume <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
+          >
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
           <ThemeToggle />
         </div>
 
@@ -90,7 +120,11 @@ export default function Header() {
             aria-controls="mobile-navigation"
             onClick={() => setOpen((current) => !current)}
           >
-            {open ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
+            {open ? (
+              <X aria-hidden="true" size={20} />
+            ) : (
+              <Menu aria-hidden="true" size={20} />
+            )}
           </button>
         </div>
       </div>
@@ -103,7 +137,11 @@ export default function Header() {
             aria-label="Close navigation menu"
             onClick={() => setOpen(false)}
           />
-          <aside id="mobile-navigation" className="mobile-menu-panel md:hidden" aria-label="Mobile navigation">
+          <aside
+            id="mobile-navigation"
+            className="mobile-menu-panel md:hidden"
+            aria-label="Mobile navigation"
+          >
             <div className="mb-8 flex items-center justify-between gap-4">
               <p className="text-sm font-semibold">{profile.name}</p>
               <button
@@ -119,26 +157,40 @@ export default function Header() {
                 <X aria-hidden="true" size={20} />
               </button>
             </div>
-          <nav className="flex flex-col" aria-label="Mobile navigation links">
-            {navigation.map((item) => {
-              const active = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`mobile-link ${active ? "mobile-link-active" : ""}`}
-                  aria-current={active ? "page" : undefined}
-                  onClick={() => setOpen(false)}
+            <nav className="flex flex-col" aria-label="Mobile navigation links">
+              {navigation.map((item) => {
+                const active = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`mobile-link ${active ? "mobile-link-active" : ""}`}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+              <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-6">
+                <a
+                  href={publicAssetPath("/resume.pdf")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="external-link"
                 >
-                  {item.label}
-                </Link>
-              );
-            })}
-            <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-6">
-              <a href={publicAssetPath("/resume.pdf")} target="_blank" rel="noopener noreferrer" className="external-link">Resume <span aria-hidden="true">↗</span></a>
-              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="external-link">LinkedIn <span aria-hidden="true">↗</span></a>
-            </div>
-          </nav>
+                  Resume <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="external-link"
+                >
+                  LinkedIn <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </nav>
           </aside>
         </>
       )}
