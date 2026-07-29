@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { navigation, profile } from "@/data/portfolio";
 import { publicAssetPath } from "@/lib/public-path";
 import { ThemeToggle } from "./theme-toggle";
@@ -14,6 +15,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,6 +32,25 @@ export default function Header() {
         setOpen(false);
         menuButtonRef.current?.focus();
       }
+
+      if (event.key === "Tab") {
+        const focusableElements = menuPanelRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+
+        if (!focusableElements?.length) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
     };
 
     const previousOverflow = document.body.style.overflow;
@@ -42,6 +63,78 @@ export default function Header() {
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
+
+  const mobileMenu = open && typeof document !== "undefined"
+    ? createPortal(
+        <>
+          <button
+            type="button"
+            className="mobile-menu-backdrop md:hidden"
+            aria-label="Close navigation menu"
+            onClick={() => setOpen(false)}
+          />
+          <aside
+            ref={menuPanelRef}
+            id="mobile-navigation"
+            className="mobile-menu-panel md:hidden"
+            aria-label="Mobile navigation"
+            aria-modal="true"
+            role="dialog"
+          >
+            <div className="mb-8 flex items-center justify-between gap-4">
+              <p className="text-sm font-semibold">{profile.name}</p>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="icon-button"
+                aria-label="Close navigation menu"
+                onClick={() => {
+                  setOpen(false);
+                  menuButtonRef.current?.focus();
+                }}
+              >
+                <X aria-hidden="true" size={20} />
+              </button>
+            </div>
+            <nav className="flex flex-col" aria-label="Mobile navigation links">
+              {navigation.map((item) => {
+                const active = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`mobile-link ${active ? "mobile-link-active" : ""}`}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+              <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-6">
+                <a
+                  href={publicAssetPath("/resume.pdf")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="external-link"
+                >
+                  Resume <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="external-link"
+                >
+                  LinkedIn <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </nav>
+          </aside>
+        </>,
+        document.body,
+      )
+    : null;
 
   return (
     <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
@@ -129,71 +222,7 @@ export default function Header() {
         </div>
       </div>
 
-      {open && (
-        <>
-          <button
-            type="button"
-            className="mobile-menu-backdrop md:hidden"
-            aria-label="Close navigation menu"
-            onClick={() => setOpen(false)}
-          />
-          <aside
-            id="mobile-navigation"
-            className="mobile-menu-panel md:hidden"
-            aria-label="Mobile navigation"
-          >
-            <div className="mb-8 flex items-center justify-between gap-4">
-              <p className="text-sm font-semibold">{profile.name}</p>
-              <button
-                ref={closeButtonRef}
-                type="button"
-                className="icon-button"
-                aria-label="Close navigation menu"
-                onClick={() => {
-                  setOpen(false);
-                  menuButtonRef.current?.focus();
-                }}
-              >
-                <X aria-hidden="true" size={20} />
-              </button>
-            </div>
-            <nav className="flex flex-col" aria-label="Mobile navigation links">
-              {navigation.map((item) => {
-                const active = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`mobile-link ${active ? "mobile-link-active" : ""}`}
-                    aria-current={active ? "page" : undefined}
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-              <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-6">
-                <a
-                  href={publicAssetPath("/resume.pdf")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="external-link"
-                >
-                  Resume <span aria-hidden="true">↗</span>
-                </a>
-                <a
-                  href={profile.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="external-link"
-                >
-                  LinkedIn <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </nav>
-          </aside>
-        </>
-      )}
+      {mobileMenu}
     </header>
   );
 }

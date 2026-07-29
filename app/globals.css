@@ -234,11 +234,21 @@
   .mobile-menu-backdrop {
     @apply fixed inset-0 bg-black/35 backdrop-blur-[2px];
     z-index: calc(var(--layer-header) + 1);
+    animation: mobile-menu-fade-in var(--transition-base) var(--ease-standard);
   }
 
   .mobile-menu-panel {
-    @apply fixed inset-y-0 right-0 flex w-[min(20rem,88vw)] flex-col border-l border-border bg-background p-5 shadow-2xl;
+    @apply fixed inset-y-0 right-0 flex w-[min(20rem,88vw)] flex-col overflow-y-auto overscroll-contain border-l border-border bg-background p-5 shadow-2xl;
     z-index: var(--layer-menu);
+    animation: mobile-menu-slide-in var(--transition-base) var(--ease-standard);
+  }
+
+  @keyframes mobile-menu-fade-in {
+    from { opacity: 0; }
+  }
+
+  @keyframes mobile-menu-slide-in {
+    from { transform: translateX(100%); }
   }
 
   .mobile-link {

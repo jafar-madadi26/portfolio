@@ -12,7 +12,6 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 const siteUrl = resolveSiteUrl();
 
 export const metadata: Metadata = {
-  metadataBase: siteUrl,
   title: { default: siteConfig.title, template: `%s | ${profile.name}` },
   description: siteConfig.description,
   applicationName: `${profile.name} Portfolio`,

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Jafar Madadi monogram</title>
+  <defs>
+    <linearGradient id="tile" x1="8" y1="6" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172554" />
+      <stop offset="0.52" stop-color="#111827" />
+      <stop offset="1" stop-color="#2e1065" />
+    </linearGradient>
+    <linearGradient id="edge" x1="10" y1="8" x2="54" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60a5fa" stop-opacity="0.7" />
+      <stop offset="1" stop-color="#c084fc" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#tile)" />
+  <rect x="3.5" y="3.5" width="57" height="57" rx="13.5" fill="none" stroke="url(#edge)" />
+  <path d="M26 15v21c0 8-4.5 13-11 13-3.1 0-5.6-1.1-7.5-3.2" fill="none" stroke="#60a5fa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M34 48V16l10 16 10-16v32" fill="none" stroke="#c084fc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
